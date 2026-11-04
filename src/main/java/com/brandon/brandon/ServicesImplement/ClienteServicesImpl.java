@@ -1,0 +1,63 @@
+package com.brandon.brandon.ServicesImplement;
+
+import com.brandon.brandon.dtos.ClienteDto;
+import com.brandon.brandon.mappers.ClienteMapper;
+import com.brandon.brandon.models.Cliente;
+import com.brandon.brandon.repositoryes.ClienteRepository;
+import com.brandon.brandon.services.ClienteServices;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+@Service
+@RequiredArgsConstructor
+public class ClienteServicesImpl implements ClienteServices {
+
+    private final ClienteRepository clienteRepository;
+    private final ClienteMapper clienteMapper;
+
+    // registrar un nuevo cliente
+    @Override
+    public ClienteDto guardar(ClienteDto clienteDto) {
+        Cliente cliente = clienteMapper.toCliente(clienteDto);
+        Cliente guardado = clienteRepository.save(cliente);
+        return clienteMapper.toDto(guardado);
+    }
+
+    // listar todos los clientes
+    @Override
+    public List<ClienteDto> listarTodos() {
+        return clienteRepository.findAll()
+                .stream()
+                .map(clienteMapper::toDto)
+                .toList();
+    }
+
+    // consultar cliente por id
+    @Override
+    public ClienteDto consultarPorId(Long id) {
+        Cliente cliente = clienteRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Cliente no encontrado con id: " + id));
+        return clienteMapper.toDto(cliente);
+    }
+
+    // actualizar un cliente
+    @Override
+    public ClienteDto actualizar(Long id, ClienteDto clienteDto) {
+        Cliente existente = clienteRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Cliente no encontrado con id: " + id));
+
+        // atributos de usuario
+        existente.setNom(clienteDto.getNombres());
+        existente.setApe(clienteDto.getApellidos());
+        existente.setDir(clienteDto.getDireccion());
+        existente.setTel(clienteDto.getTelefono());
+        // atributos de cliente
+        existente.setTipoCliente(clienteDto.getTipCli());
+        existente.setPuntos(clienteDto.getPuntos());
+
+        Cliente actualizado = clienteRepository.save(existente);
+        return clienteMapper.toDto(actualizado);
+    }
+}

@@ -1,6 +1,5 @@
-	package com.brandon.brandon.dtos;
+package com.brandon.brandon.dtos;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -8,12 +7,11 @@ import lombok.experimental.SuperBuilder;
 
 @Getter
 @Setter
-@AllArgsConstructor
-@NoArgsConstructor 
-@SuperBuilder 
+@NoArgsConstructor
+@SuperBuilder
 public class TrabajadorDto extends UsuarioDto {
+
+    // atributos de trabajador
     private String cargo;
-
-    private Double saldo;
-
+    private Double sueldo;
 }
