@@ -1,8 +1,9 @@
 package com.brandon.brandon.dtos;
 
-import jakarta.validation.constraints.NotBlank;        
-import jakarta.validation.constraints.PositiveOrZero;  
-import jakarta.validation.constraints.Size;            
+import com.brandon.brandon.enums.TipoCliente;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.PositiveOrZero;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,10 +18,10 @@ import lombok.experimental.SuperBuilder;
 public class ClienteDto extends UsuarioDto {
 
     // atributos de cliente
-    @NotBlank(message = "el tipo de cliente es obligatorio")                          
-    @Size(max = 50, message = "el tipo de cliente no puede superar 50 caracteres")    
-    private String tipCli;
+    @NotNull(message = "el tipo de cliente es obligatorio")
+    private TipoCliente tipCli;
 
-    @PositiveOrZero(message = "los puntos no pueden ser negativos")                   
+    @JsonProperty("pts")
+    @PositiveOrZero(message = "los puntos no pueden ser negativos")
     private Integer puntos;
 }

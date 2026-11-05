@@ -8,7 +8,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-   import lombok.experimental.SuperBuilder;
+import lombok.experimental.SuperBuilder;
+import com.brandon.brandon.enums.TipoCliente;
 
 @Entity
 @Table(name = "clientes")
@@ -21,7 +22,7 @@ import lombok.Setter;
 public class Cliente extends Usuario {
 
     @Column(name = "tipo_cliente")
-    private String tipoCliente;
+    private TipoCliente tipoCliente;
 
     @Column(name = "puntos")
     private Integer puntos;
