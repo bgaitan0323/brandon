@@ -16,4 +16,6 @@ public interface TrabajadorServices {
 
     // actualizar un trabajador
     TrabajadorDto actualizar(Long id, TrabajadorDto trabajadorDto);
+    // eliminar un trabajador
+    void eliminar(Long id);
 }

@@ -60,4 +60,13 @@ public class ClienteServicesImpl implements ClienteServices {
         Cliente actualizado = clienteRepository.save(existente);
         return clienteMapper.toDto(actualizado);
     }
+
+    // eliminar un cliente
+    @Override
+    public void eliminar(Long id) {
+        if (!clienteRepository.existsById(id)) {
+            throw new RuntimeException("Cliente no encontrado con id: " + id);
+        }
+        clienteRepository.deleteById(id);
+    }
 }

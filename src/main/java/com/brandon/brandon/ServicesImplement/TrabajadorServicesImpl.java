@@ -60,4 +60,12 @@ public class TrabajadorServicesImpl implements TrabajadorServices {
         Trabajador actualizado = trabajadorRepository.save(existente);
         return trabajadorMapper.toDto(actualizado);
     }
+    // eliminar un trabajador
+    @Override
+    public void eliminar(Long id) {
+    if (!trabajadorRepository.existsById(id)) {
+        throw new RuntimeException("Trabajador no encontrado con id: " + id);
+    }
+    trabajadorRepository.deleteById(id);
+}
 }

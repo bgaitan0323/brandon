@@ -16,5 +16,7 @@ public interface ClienteServices {
 
     // actualizar un cliente
     ClienteDto actualizar(Long id, ClienteDto clienteDto);
+     // eliminar un cliente
+    void eliminar(Long id);
 
 }

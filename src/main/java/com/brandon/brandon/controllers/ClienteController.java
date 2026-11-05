@@ -6,6 +6,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -38,13 +39,13 @@ public class ClienteController {
         return ResponseEntity.ok(clienteServices.listarTodos());
     }
 
-    // consultar cliente por id 
+    //  Consultar cliente por id
     @GetMapping("/{id}")
     public ResponseEntity<ClienteDto> consultarPorId(@PathVariable Long id) {
-    return ResponseEntity.ok(clienteServices.consultarPorId(id));
+        return ResponseEntity.ok(clienteServices.consultarPorId(id));
     }
 
-    //  Actualizar un cliente (id en la url)
+    //  Actualizar un cliente 
     @PutMapping("/{id}")
     public ResponseEntity<ClienteDto> Update(@PathVariable Long id, @RequestBody ClienteDto clienteDto) {
         ClienteDto clienteActualizado = clienteServices.actualizar(id, clienteDto);
@@ -59,4 +60,10 @@ public class ClienteController {
         return ResponseEntity.ok(clienteActualizado);
     }
 
+    //  Eliminar un cliente
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> eliminar(@PathVariable Long id) {
+        clienteServices.eliminar(id);
+        return ResponseEntity.noContent().build();
+    }
 }
