@@ -23,15 +23,15 @@ import java.util.List;
 public class ClienteController {
 
     private final ClienteServices clienteServices;
-
-    // Registrar nuevo cliente
-    @PostMapping
+    
+   // Registrar nuevo cliente
+    @PostMapping("/crear")
     public ResponseEntity<ClienteDto> guardar(@Valid @RequestBody ClienteDto clienteDto) {
-        ClienteDto clienteGuardado = clienteServices.guardar(clienteDto);
-        return ResponseEntity
-                .status(HttpStatus.CREATED)
-                .body(clienteGuardado);
-    }
+    ClienteDto clienteGuardado = clienteServices.guardar(clienteDto);
+    return ResponseEntity
+    .status(HttpStatus.CREATED)
+    .body(clienteGuardado);
+}
 
     // Listar clientes
     @GetMapping
