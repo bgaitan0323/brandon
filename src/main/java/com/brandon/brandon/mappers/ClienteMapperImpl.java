@@ -1,6 +1,7 @@
 package com.brandon.brandon.mappers;
 
 import com.brandon.brandon.dtos.ClienteDto;
+import com.brandon.brandon.dtos.ClienteDtOResponse;
 import com.brandon.brandon.models.Cliente;
 import org.springframework.stereotype.Component;
 
@@ -8,14 +9,12 @@ import org.springframework.stereotype.Component;
 public class ClienteMapperImpl implements ClienteMapper {
 
     @Override
-    public ClienteDto toDto(Cliente cliente) {
-        // valida que tenga datos
+    public ClienteDtOResponse toDto(Cliente cliente) {
         if (cliente == null) {
             return null;
         }
-        // convertir de cliente a clienteDto
-        return ClienteDto.builder()
-                // atributos de usuario
+        return ClienteDtOResponse.builder()
+                // atributos de usuario (entidad: nom/ape/dir/tel -> dto: nombres/...)
                 .id(cliente.getId())
                 .nombres(cliente.getNom())
                 .apellidos(cliente.getApe())
@@ -23,17 +22,15 @@ public class ClienteMapperImpl implements ClienteMapper {
                 .telefono(cliente.getTel())
                 // atributos de cliente
                 .tipCli(cliente.getTipoCliente())
-                .puntos(cliente.getPuntos())
+                .pts(cliente.getPuntos())
                 .build();
     }
 
     @Override
     public Cliente toCliente(ClienteDto clienteDto) {
-        // valida que tenga datos
         if (clienteDto == null) {
             return null;
         }
-        // convertir de clienteDto a cliente
         return Cliente.builder()
                 // atributos de usuario
                 .id(clienteDto.getId())
@@ -43,6 +40,7 @@ public class ClienteMapperImpl implements ClienteMapper {
                 .tel(clienteDto.getTelefono())
                 // atributos de cliente
                 .tipoCliente(clienteDto.getTipCli())
+                .tipoClienteNum(clienteDto.getTipCli())
                 .puntos(clienteDto.getPuntos())
                 .build();
     }

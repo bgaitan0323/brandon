@@ -23,7 +23,7 @@ public class TiposCliente {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Byte id;
 
-    @Column(name = "nombre", nullable = false, length = 50)
+    @Column(name = "nombre", nullable = false, unique = true, length = 50)
     private String nombre;
 
     @Column(name = "descripcion", length = 120)

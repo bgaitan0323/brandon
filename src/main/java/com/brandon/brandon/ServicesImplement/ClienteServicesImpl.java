@@ -1,6 +1,7 @@
 package com.brandon.brandon.ServicesImplement;
 
 import com.brandon.brandon.dtos.ClienteDto;
+import com.brandon.brandon.dtos.ClienteDtOResponse;
 import com.brandon.brandon.mappers.ClienteMapper;
 import com.brandon.brandon.models.Cliente;
 import com.brandon.brandon.repositoryes.ClienteRepository;
@@ -19,7 +20,7 @@ public class ClienteServicesImpl implements ClienteServices {
 
     // registrar un nuevo cliente
     @Override
-    public ClienteDto guardar(ClienteDto clienteDto) {
+    public ClienteDtOResponse guardar(ClienteDto clienteDto) {
         Cliente cliente = clienteMapper.toCliente(clienteDto);
         Cliente guardado = clienteRepository.save(cliente);
         return clienteMapper.toDto(guardado);
@@ -27,7 +28,7 @@ public class ClienteServicesImpl implements ClienteServices {
 
     // listar todos los clientes
     @Override
-    public List<ClienteDto> listarTodos() {
+    public List<ClienteDtOResponse> listarTodos() {
         return clienteRepository.findAll()
                 .stream()
                 .map(clienteMapper::toDto)
@@ -36,7 +37,7 @@ public class ClienteServicesImpl implements ClienteServices {
 
     // consultar cliente por id
     @Override
-    public ClienteDto consultarPorId(Long id) {
+    public ClienteDtOResponse consultarPorId(Long id) {
         Cliente cliente = clienteRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Cliente no encontrado con id: " + id));
         return clienteMapper.toDto(cliente);
@@ -44,7 +45,7 @@ public class ClienteServicesImpl implements ClienteServices {
 
     // actualizar un cliente
     @Override
-    public ClienteDto actualizar(Long id, ClienteDto clienteDto) {
+    public ClienteDtOResponse actualizar(Long id, ClienteDto clienteDto) {
         Cliente existente = clienteRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Cliente no encontrado con id: " + id));
 
@@ -55,6 +56,7 @@ public class ClienteServicesImpl implements ClienteServices {
         existente.setTel(clienteDto.getTelefono());
         // atributos de cliente
         existente.setTipoCliente(clienteDto.getTipCli());
+        existente.setTipoClienteNum(clienteDto.getTipCli());
         existente.setPuntos(clienteDto.getPuntos());
 
         Cliente actualizado = clienteRepository.save(existente);

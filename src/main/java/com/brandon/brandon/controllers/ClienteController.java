@@ -1,6 +1,7 @@
 package com.brandon.brandon.controllers;
 
 import com.brandon.brandon.dtos.ClienteDto;
+import com.brandon.brandon.dtos.ClienteDtOResponse;
 import com.brandon.brandon.services.ClienteServices;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -23,33 +24,33 @@ import java.util.List;
 public class ClienteController {
 
     private final ClienteServices clienteServices;
-    
-   // Registrar nuevo cliente
+
+    // Registrar nuevo cliente
     @PostMapping("/crear")
-    public ResponseEntity<ClienteDto> guardar(@Valid @RequestBody ClienteDto clienteDto) {
-    ClienteDto clienteGuardado = clienteServices.guardar(clienteDto);
-    return ResponseEntity
-    .status(HttpStatus.CREATED)
-    .body(clienteGuardado);
-}
+    public ResponseEntity<ClienteDtOResponse> guardar(@Valid @RequestBody ClienteDto clienteDto) {
+        ClienteDtOResponse clienteGuardado = clienteServices.guardar(clienteDto);
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
+                .body(clienteGuardado);
+    }
 
     // Listar clientes
     @GetMapping
-    public ResponseEntity<List<ClienteDto>> listarClientes() {
+    public ResponseEntity<List<ClienteDtOResponse>> listarClientes() {
         return ResponseEntity.ok(clienteServices.listarTodos());
     }
 
     // Consultar cliente por id
     @GetMapping("/{id}")
-    public ResponseEntity<ClienteDto> consultarPorId(@PathVariable Long id) {
+    public ResponseEntity<ClienteDtOResponse> consultarPorId(@PathVariable Long id) {
         return ResponseEntity.ok(clienteServices.consultarPorId(id));
     }
 
     // Actualizar un cliente
     @PutMapping("/{id}")
-    public ResponseEntity<ClienteDto> update(@PathVariable Long id,
+    public ResponseEntity<ClienteDtOResponse> update(@PathVariable Long id,
     @Valid @RequestBody ClienteDto clienteDto) {
-        ClienteDto clienteActualizado = clienteServices.actualizar(id, clienteDto);
+        ClienteDtOResponse clienteActualizado = clienteServices.actualizar(id, clienteDto);
         return ResponseEntity.ok(clienteActualizado);
     }
 

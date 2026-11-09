@@ -2,6 +2,8 @@ package com.brandon.brandon.dtos;
 
 import com.brandon.brandon.enums.TipoCliente;
 import com.fasterxml.jackson.annotation.JsonProperty;
+
+import jakarta.persistence.ManyToOne;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PositiveOrZero;
 import lombok.AllArgsConstructor;
@@ -24,4 +26,5 @@ public class ClienteDto extends UsuarioDto {
     @JsonProperty("pts")
     @PositiveOrZero(message = "los puntos no pueden ser negativos")
     private Integer puntos;
+    
 }
