@@ -32,12 +32,12 @@ public class Cliente extends Usuario {
     private TiposCliente tiposCliente;
 
     // Se guarda el número (0, 1, 2...)
-    @Enumerated(EnumType.ORDINAL)
+    // @Enumerated(EnumType.ORDINAL)
     @Column(name = "tipo_cliente_num")
     private TipoCliente tipoClienteNum;
 
     // Se guarda el texto (REGULAR, VIP...)
-    @Enumerated(EnumType.STRING)
+    // @Enumerated(EnumType.STRING)
     @Column(name = "tipo_cliente", length = 20)
     private TipoCliente tipoCliente;
 

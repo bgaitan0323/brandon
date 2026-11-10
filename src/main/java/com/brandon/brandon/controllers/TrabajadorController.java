@@ -1,6 +1,7 @@
 package com.brandon.brandon.controllers;
 
 import com.brandon.brandon.dtos.TrabajadorDto;
+import com.brandon.brandon.dtos.TrabajadorDtoResponse;
 import com.brandon.brandon.services.TrabajadorServices;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -18,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/trabajadores")
+@RequestMapping("api/trabajadores")
 @RequiredArgsConstructor
 public class TrabajadorController {
 
@@ -26,35 +27,36 @@ public class TrabajadorController {
 
     // Registrar nuevo trabajador
     @PostMapping
-    public ResponseEntity<TrabajadorDto> guardar(@Valid @RequestBody TrabajadorDto trabajadorDto) {
-        TrabajadorDto guardado = trabajadorServices.guardar(trabajadorDto);
+    public ResponseEntity<TrabajadorDtoResponse> guardar(@Valid @RequestBody TrabajadorDto trabajadorDto) {
+        TrabajadorDtoResponse guardado = trabajadorServices.guardar(trabajadorDto);
         return ResponseEntity
                 .status(HttpStatus.CREATED)
                 .body(guardado);
     }
 
-    //  Listar trabajadores
+    // Listar trabajadores
     @GetMapping
-    public ResponseEntity<List<TrabajadorDto>> listarTrabajadores() {
+    public ResponseEntity<List<TrabajadorDtoResponse>> listarTrabajadores() {
         return ResponseEntity.ok(trabajadorServices.listarTodos());
     }
 
-   // consultar trabajador por id 
+    // consultar trabajador por id
     @GetMapping("/{id}")
-    public ResponseEntity<TrabajadorDto> consultarPorId(@PathVariable Long id) {
-    return ResponseEntity.ok(trabajadorServices.consultarPorId(id));
+    public ResponseEntity<TrabajadorDtoResponse> consultarPorId(@PathVariable Long id) {
+        return ResponseEntity.ok(trabajadorServices.consultarPorId(id));
     }
 
-    //  Actualizar un trabajador 
+    // Actualizar un trabajador
     @PutMapping("/{id}")
-    public ResponseEntity<TrabajadorDto> actualizar(@PathVariable Long id,
-                                                    @RequestBody TrabajadorDto trabajadorDto) {
+    public ResponseEntity<TrabajadorDtoResponse> actualizar(@PathVariable Long id,
+    @RequestBody TrabajadorDto trabajadorDto) {
         return ResponseEntity.ok(trabajadorServices.actualizar(id, trabajadorDto));
     }
-    //  Eliminar un trabajador 
+
+    // Eliminar un trabajador
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> eliminar(@PathVariable Long id) {
-    trabajadorServices.eliminar(id);
-    return ResponseEntity.noContent().build();
-}
+        trabajadorServices.eliminar(id);
+        return ResponseEntity.noContent().build();
+    }
 }

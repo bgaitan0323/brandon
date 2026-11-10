@@ -1,6 +1,7 @@
 package com.brandon.brandon.mappers;
 
 import com.brandon.brandon.dtos.TrabajadorDto;
+import com.brandon.brandon.dtos.TrabajadorDtoResponse;
 import com.brandon.brandon.models.Trabajador;
 import org.springframework.stereotype.Component;
 
@@ -8,11 +9,11 @@ import org.springframework.stereotype.Component;
 public class TrabajadorMapperImpl implements TrabajadorMapper {
 
     @Override
-    public TrabajadorDto toDto(Trabajador trabajador) {
+    public TrabajadorDtoResponse toDto(Trabajador trabajador) {
         if (trabajador == null) {
             return null;
         }
-        return TrabajadorDto.builder()
+        return TrabajadorDtoResponse.builder()
                 // atributos de usuario
                 .id(trabajador.getId())
                 .nombres(trabajador.getNom())
@@ -20,7 +21,10 @@ public class TrabajadorMapperImpl implements TrabajadorMapper {
                 .direccion(trabajador.getDir())
                 .telefono(trabajador.getTel())
                 // atributos de trabajador
-                .cargo(trabajador.getCargo())
+                .tipoCargoId(trabajador.getTiposCargo() != null
+                        ? trabajador.getTiposCargo().getId() : null)
+                .cargo(trabajador.getTiposCargo() != null
+                        ? trabajador.getTiposCargo().getNombre() : null)
                 .sueldo(trabajador.getSueldo())
                 .build();
     }
@@ -37,9 +41,8 @@ public class TrabajadorMapperImpl implements TrabajadorMapper {
                 .ape(trabajadorDto.getApellidos())
                 .dir(trabajadorDto.getDireccion())
                 .tel(trabajadorDto.getTelefono())
-                // atributos de trabajador
-                .cargo(trabajadorDto.getCargo())
-                .sueldo(trabajadorDto.getSueldo())
+                // atributos de trabajador (el cargo lo asigna el service)
+                .sueldo (trabajadorDto.getSueldo())
                 .build();
     }
 }
