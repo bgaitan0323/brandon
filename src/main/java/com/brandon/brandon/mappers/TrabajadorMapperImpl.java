@@ -34,15 +34,15 @@ public class TrabajadorMapperImpl implements TrabajadorMapper {
         if (trabajadorDto == null) {
             return null;
         }
-        return Trabajador.builder()
-                // atributos de usuario
-                .id(trabajadorDto.getId())
-                .nom(trabajadorDto.getNombres())
-                .ape(trabajadorDto.getApellidos())
-                .dir(trabajadorDto.getDireccion())
-                .tel(trabajadorDto.getTelefono())
-                // atributos de trabajador (el cargo lo asigna el service)
-                .sueldo (trabajadorDto.getSueldo())
-                .build();
+        Trabajador trabajador = new Trabajador();
+        // atributos de usuario
+        trabajador.setId(trabajadorDto.getId());
+        trabajador.setNom(trabajadorDto.getNombres());
+        trabajador.setApe(trabajadorDto.getApellidos());
+        trabajador.setDir(trabajadorDto.getDireccion());
+        trabajador.setTel(trabajadorDto.getTelefono());
+        // atributos de trabajador (el cargo lo asigna el service)
+        trabajador.setSueldo(trabajadorDto.getSueldo());
+        return trabajador;
     }
 }
