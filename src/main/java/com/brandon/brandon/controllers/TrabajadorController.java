@@ -19,19 +19,18 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("api/trabajadores")
+@RequestMapping("/api/trabajadores")
 @RequiredArgsConstructor
 public class TrabajadorController {
 
     private final TrabajadorServices trabajadorServices;
 
     // Registrar nuevo trabajador
-    @PostMapping
+    @PostMapping("/crear")
     public ResponseEntity<TrabajadorDtoResponse> guardar(@Valid @RequestBody TrabajadorDto trabajadorDto) {
-        TrabajadorDtoResponse guardado = trabajadorServices.guardar(trabajadorDto);
         return ResponseEntity
                 .status(HttpStatus.CREATED)
-                .body(guardado);
+                .body(trabajadorServices.guardar(trabajadorDto));
     }
 
     // Listar trabajadores
@@ -40,16 +39,22 @@ public class TrabajadorController {
         return ResponseEntity.ok(trabajadorServices.listarTodos());
     }
 
-    // consultar trabajador por id
+    // Consultar por id en la url
     @GetMapping("/{id}")
     public ResponseEntity<TrabajadorDtoResponse> consultarPorId(@PathVariable Long id) {
         return ResponseEntity.ok(trabajadorServices.consultarPorId(id));
     }
 
+    // Consultar por id oculto 
+    @PostMapping("/buscar")
+    public ResponseEntity<TrabajadorDtoResponse> consultarPorIdOculto(@RequestBody TrabajadorDto dto) {
+        return ResponseEntity.ok(trabajadorServices.consultarPorId(dto.getId()));
+    }
+
     // Actualizar un trabajador
     @PutMapping("/{id}")
-    public ResponseEntity<TrabajadorDtoResponse> actualizar(@PathVariable Long id,
-    @RequestBody TrabajadorDto trabajadorDto) {
+    public ResponseEntity<TrabajadorDtoResponse> update(@PathVariable Long id,
+    @Valid @RequestBody TrabajadorDto trabajadorDto) {
         return ResponseEntity.ok(trabajadorServices.actualizar(id, trabajadorDto));
     }
 

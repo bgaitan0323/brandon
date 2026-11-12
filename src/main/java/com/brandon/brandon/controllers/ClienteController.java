@@ -40,18 +40,23 @@ public class ClienteController {
         return ResponseEntity.ok(clienteServices.listarTodos());
     }
 
-    // Consultar cliente por id
+    // Consultar cliente por id por url: GET /api/clientes/1
     @GetMapping("/{id}")
     public ResponseEntity<ClienteDtOResponse> consultarPorId(@PathVariable Long id) {
         return ResponseEntity.ok(clienteServices.consultarPorId(id));
+    }
+
+    // Consultar cliente por id oculto (en el body): POST /api/clientes/buscar
+    @PostMapping("/buscar")
+    public ResponseEntity<ClienteDtOResponse> consultarPorIdOculto(@RequestBody ClienteDto dto) {
+        return ResponseEntity.ok(clienteServices.consultarPorId(dto.getId()));
     }
 
     // Actualizar un cliente
     @PutMapping("/{id}")
     public ResponseEntity<ClienteDtOResponse> update(@PathVariable Long id,
     @Valid @RequestBody ClienteDto clienteDto) {
-        ClienteDtOResponse clienteActualizado = clienteServices.actualizar(id, clienteDto);
-        return ResponseEntity.ok(clienteActualizado);
+        return ResponseEntity.ok(clienteServices.actualizar(id, clienteDto));
     }
 
     // Eliminar un cliente
